@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if action=='new' %}Crear Contrato{% else %}Editar Contrato{% endif %}</h2>
+<form method="post" class="row g-3">
+<div class="col-md-12"><label class="form-label">Detalles</label><input name="detalles" class="form-control" value="{{ item.get('detalles') if item }}"></div>
+<div class="col-md-6"><label class="form-label">Hash Address</label><input name="hashAddress" class="form-control" value="{{ item.get('hashAddress') if item }}"></div>
+<div class="col-md-6"><label class="form-label">Precio ETH</label><input name="precioETH" class="form-control" value="{{ item.get('precioETH') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Precio BS</label><input type="number" step="0.01" name="precioBS" class="form-control" value="{{ item.get('precioBS') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Fecha</label><input type="date" name="fecha" class="form-control" value="{{ item.get('fecha') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Cliente</label>
+<select name="clienteId" class="form-select" required>
+<option value="">--Seleccione--</option>
+{% for cl in clientes %}<option value="{{cl.id}}" {% if item and item.get('cliente') and item.get('cliente').get('id')==cl.id %}selected{% endif %}>{{cl.nombre}} {{cl.apellido}}</option>{% endfor %}
+</select></div>
+<div class="col-md-6"><label class="form-label">Abogado</label>
+<select name="abogadoId" class="form-select" required>
+<option value="">--Seleccione--</option>
+{% for ab in abogados %}<option value="{{ab.id}}" {% if item and item.get('Abogado') and item.get('Abogado').get('id')==ab.id %}selected{% endif %}>{{ab.nombre}} {{ab.apellido}}</option>{% endfor %}
+</select></div>
+<div class="col-md-6"><label class="form-label">Caso</label>
+<select name="casoId" class="form-select" required>
+<option value="">--Seleccione--</option>
+{% for ca in casos %}<option value="{{ca.id}}" {% if item and item.get('Caso') and item.get('Caso').get('id')==ca.id %}selected{% endif %}>{{ca.demandante}}</option>{% endfor %}
+</select></div>
+<div class="col-12"><button class="btn btn-success" type="submit">Guardar</button> <a class="btn btn-secondary" href="/contrato">Cancelar</a></div>
+</form>
+{% endblock %}

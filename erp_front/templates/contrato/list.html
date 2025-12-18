@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Contratos</h2>
+<a class="btn btn-primary mb-3" href="/contrato/new">Crear Contrato</a>
+<table class="table table-bordered">
+<thead><tr><th>ID</th><th>Detalles</th><th>Hash</th><th>PrecioETH</th><th>PrecioBS</th><th>Fecha</th><th>Cliente</th><th>Abogado</th><th>Caso</th><th>Acciones</th></tr></thead>
+<tbody>
+{% for c in items %}
+<tr>
+<td>{{c.id}}</td><td>{{c.detalles}}</td><td>{{c.hashAddress}}</td><td>{{c.precioETH}}</td><td>{{c.precioBS}}</td><td>{{c.fecha}}</td>
+<td>{% if c.cliente %}{{c.cliente.nombre}} {{c.cliente.apellido}}{% endif %}</td>
+<td>{% if c.Abogado %}{{c.Abogado.nombre}} {{c.Abogado.apellido}}{% endif %}</td>
+<td>{% if c.Caso %}{{c.Caso.demandante}}{% endif %}</td>
+<td><a class="btn btn-sm btn-warning" href="/contrato/edit/{{c.id}}">Editar</a> <a class="btn btn-sm btn-danger" href="/contrato/delete/{{c.id}}" onclick="return confirm('Eliminar?')">Eliminar</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<nav><ul class="pagination">{% for p in range(1,pages+1) %}<li class="page-item {% if p==page %}active{% endif %}"><a class="page-link" href="/contrato?page={{p}}">{{p}}</a></li>{% endfor %}</ul></nav>
+{% endblock %}

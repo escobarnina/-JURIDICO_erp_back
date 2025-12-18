@@ -1,0 +1,48 @@
+
+# Archivo: docker-compose.yml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: erp-postgres
+    environment:
+      POSTGRES_DB: sw2_erp
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - erp-network
+
+  springboot-app:
+    build: .
+    container_name: erp-springboot
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sw2_erp
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: adminpass
+    depends_on:
+      - postgres
+    networks:
+      - erp-network
+  
+  web:
+    build: ./erp_front
+    container_name: erp-front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - springboot-app
+    networks:
+      - erp-network
+
+volumes:
+  postgres_data:
+
+networks:
+  erp-network:

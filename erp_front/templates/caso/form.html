@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if action=='new' %}Crear Caso{% else %}Editar Caso{% endif %}</h2>
+<form method="post" class="row g-3">
+<div class="col-md-6"><label class="form-label">Demandante</label><input name="demandante" class="form-control" required value="{{ item.get('demandante') if item }}"></div>
+<div class="col-md-6"><label class="form-label">Materia</label><input name="meteria" class="form-control" required value="{{ item.get('meteria') if item }}"></div>
+<div class="col-md-6"><label class="form-label">Tipo Proceso</label><input name="tipoProceso" class="form-control" required value="{{ item.get('tipoProceso') if item }}"></div>
+<div class="col-md-6"><label class="form-label">Lugar Asignado</label><input name="lugarAsignado" class="form-control" required value="{{ item.get('lugarAsignado') if item }}"></div>
+<div class="col-12"><button class="btn btn-success" type="submit">Guardar</button> <a class="btn btn-secondary" href="/caso">Cancelar</a></div>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Casos</h2>
+<a class="btn btn-primary mb-3" href="/caso/new">Crear Caso</a>
+<table class="table table-bordered">
+<thead><tr><th>ID</th><th>Demandante</th><th>Materia</th><th>Tipo Proceso</th><th>Lugar</th><th>Acciones</th></tr></thead>
+<tbody>
+{% for c in items %}
+<tr>
+<td>{{c.id}}</td><td>{{c.demandante}}</td><td>{{c.meteria}}</td><td>{{c.tipoProceso}}</td><td>{{c.lugarAsignado}}</td>
+<td><a class="btn btn-sm btn-warning" href="/caso/edit/{{c.id}}">Editar</a> <a class="btn btn-sm btn-danger" href="/caso/delete/{{c.id}}" onclick="return confirm('Eliminar?')">Eliminar</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<nav><ul class="pagination">{% for p in range(1,pages+1) %}<li class="page-item {% if p==page %}active{% endif %}"><a class="page-link" href="/caso?page={{p}}">{{p}}</a></li>{% endfor %}</ul></nav>
+{% endblock %}

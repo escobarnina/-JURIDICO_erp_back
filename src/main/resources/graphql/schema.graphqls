@@ -1,0 +1,102 @@
+type Contrato {
+    id: ID
+    detalles: String
+    hashAddress: String
+    precioETH: String
+    precioBS: Float
+    fecha: String
+    cliente: Cliente
+    Abogado: Abogado
+    Caso: Caso
+
+}
+
+type Abogado {
+    id: ID
+    nombre: String!
+    apellido: String!
+    ci: String!
+    telefono: String!
+    correo: String!
+    cuentaETH: String!
+    registroAbogado: String!
+}
+
+type Cliente {
+    id: ID!
+    nombre: String!
+    apellido: String!
+    ci: String!
+    telefono: String!
+    correo: String!
+    fechaNac: String!
+    cuentaETH: String!
+}
+
+type Caso {
+    id: ID!
+    demandante: String!
+    meteria: String!
+    tipoProceso: String!
+    lugarAsignado: String!
+}
+
+type Query {
+    allClientes: [Cliente!]!
+    clientePorId(id: ID!): Cliente
+
+    allAbogados: [Abogado!]!
+    abogadoPorId(id: ID!): Abogado
+
+    allContratos: [Contrato!]!
+    contratoById(id: ID!): Contrato
+
+    allCasos: [Caso]!
+    casoById(id: ID!): Caso
+}
+
+type Mutation {
+
+    crearCliente(
+        nombre: String!
+        apellido: String!
+        ci: String!
+        telefono: String!
+        correo: String!
+        fechaNac: String!
+        cuentaETH: String!
+    ): Cliente!
+
+    crearAbogado(
+        nombre: String!
+        apellido: String!
+        ci: String!
+        telefono: String!
+        correo: String!
+        cuentaETH: String!
+        registroAbogado: String!
+    ): Abogado!
+
+    crearContrato(
+        detalles: String
+        hashAddress: String
+        precioETH: String
+        precioBS: Float
+        fecha: String
+        clienteId: ID!
+        abogadoId: ID!
+        casoId: ID!
+    ): Contrato!
+
+    crearCaso(
+        demandante: String!
+        meteria: String!
+        tipoProceso: String!
+        lugarAsignado: String!
+    ): Caso!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}

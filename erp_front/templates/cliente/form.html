@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if action=='new' %}Crear Cliente{% else %}Editar Cliente{% endif %}</h2>
+<form method="post" class="row g-3">
+<div class="col-md-6"><label class="form-label">Nombre</label><input name="nombre" class="form-control" required value="{{ item.get('nombre') if item }}"></div>
+<div class="col-md-6"><label class="form-label">Apellido</label><input name="apellido" class="form-control" required value="{{ item.get('apellido') if item }}"></div>
+<div class="col-md-4"><label class="form-label">CI</label><input name="ci" class="form-control" required value="{{ item.get('ci') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Teléfono</label><input name="telefono" class="form-control" required value="{{ item.get('telefono') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Correo</label><input type="email" name="correo" class="form-control" required value="{{ item.get('correo') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Fecha Nac</label><input type="date" name="fechaNac" class="form-control" required value="{{ item.get('fechaNac') if item }}"></div>
+<div class="col-md-4"><label class="form-label">Cuenta ETH</label><input name="cuentaETH" class="form-control" required value="{{ item.get('cuentaETH') if item }}"></div>
+<div class="col-12"><button class="btn btn-success" type="submit">Guardar</button> <a class="btn btn-secondary" href="/cliente">Cancelar</a></div>
+</form>
+{% endblock %}
